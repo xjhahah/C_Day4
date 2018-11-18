@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define _CRT_SECURE_NO_WARNINGS 1
+#include <math.h>
 
 //打印菱形
 void Test1()
@@ -37,8 +37,82 @@ void Test1()
 		printf("\n");
 	}
 }
+//水仙花数
+void Test2()
+{
+	int n = 0;	
+	printf("请输入你要判断的水仙花数: ");
+	scanf_s("%d",&n);
+	for (int i = 0; i < n; ++i)
+	{
+		int count = 1;
+		int sum = 0;
+		//计算是几位数
+		int tmp = i;
+		while (tmp > 9)
+		{
+			count++;
+			tmp /= 10;
+		}
+		//得到每一位
+		tmp = i;
+		while (tmp)
+		{
+			sum += pow(tmp % 10, count);
+			tmp /= 10;
+		}
+		if (sum == i)
+		{
+			printf("%d ", i);
+		}
+	}
+}
+//求Sn=a+aa+aaa+aaaa+aaaaa的前5项之和
+void Test3()
+{
+	int n, m;
+	int sum = 0,next=0;
+	printf("请输入你要累加的数：");
+	scanf_s("%d%d", &n, &m);
+	for (int i = 0; i < m; ++i)
+	{
+		next = next * 10 + n;
+		sum = sum + next;
+	}
+	printf("%d\n", sum);
+}
+//从标准输入读取C源代码，并验证所有的花括号都正确的成对出现
+void Test4()
+{
+	int ch=0;
+	int count = 0;
+	while (ch == getchar() != EOF)
+	{
+		if (ch == '{')
+			count++;
+		else if (ch == '}'&&count == 0)
+		{
+			printf("不匹配\n");
+			return;
+		}
+		else if (ch == '}')
+			count--;
+	}
+	if (count == 0)
+	{
+		printf("匹配\n");
+	}
+	else
+	{
+		printf("不匹配\n");
+	}
+}
 int main()
 {
 	Test1();
+	Test2();
+	Test3();
+	Test4();
+	getchar();
 	return 0;
 }
